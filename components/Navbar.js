@@ -7,16 +7,11 @@ export default function Navbar({ setActive, darkMode, setSearch, search }) {
 
     const [timeoutId, setTimeoutId] = useState(null);
 
-
     const changer = () => setActive(prev => !prev)
-    // const searchRef = useRef()
     const clearSearch = () => setSearch('')
-
-
 
     const searchSetter = (e) => {
         clearTimeout(timeoutId);
-
         const id = setTimeout(() => {
             setSearch(e)
         }, 300);
@@ -31,18 +26,18 @@ export default function Navbar({ setActive, darkMode, setSearch, search }) {
          md:justify-start  z-10 
          ${darkMode ? 'bg-[#202124] text-white border-[#5f6368]' : 'bg-white text-[#202124] border-[#e0e0e0]'}`}>
 
+            {/* open/close sidebar */}
             <div className='flex'>
                 <div onClick={changer} className={`border-round rounded-full flex place-content-center ${darkMode ? 'hover:bg-gray-600 ' : 'hover:bg-gray-200'} text-xl p-4`}>
                     <GiHamburgerMenu />
                 </div>
-
+                {/* logo */}
                 <div className='flex items-center text-2xl gap-2'>
                     <Image src="/logo.png" alt="Picture of the author" width={40} height={36} />
                     <h1>Keep</h1>
                 </div>
             </div>
-            {/* hover:bg-gray-200 */}
-            {/* bg-[#525356] */}
+            {/* searchbar */}
             <div className={`h-[48px] self-center bg-white rounded-lg min-w-[50vw] flex md:min-w-[40vw] max-w-[720px] duration-300 ml-[5%] ${darkMode ? '' : 'border border-[#e0e0e0]'}`}>
                 <div className='w-16 h-[48px] flex place-content-center p-1'>
                     <div className='flex items-center justify-center rounded-full w-10 h-10 '>
@@ -53,6 +48,7 @@ export default function Navbar({ setActive, darkMode, setSearch, search }) {
                 <div className='w-full flex items-center placeholder-[#bfbfc0] text-black text-lg'>
                     <input onChange={(e) => searchSetter(e.target.value)} type="search" name="Search" placeholder="Search" className="w-full focus:outline-none bg-transparent" />
                 </div>
+                {/* clear search */}
                 {search != '' &&
                     <div className='w-16 flex place-content-center p-1'>
                         <div onClick={clearSearch} className='flex items-center justify-center rounded-full w-10 h-10 hover:bg-gray-200 cursor-pointer text-black text-2xl'>
