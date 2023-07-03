@@ -11,20 +11,30 @@ export default function ({ darkMode, setDarkMode, setActive, active, currentNote
     // filtered Notes
     const [filteredNotes, setFilteredNotes] = useState()
     // category list
-    const [catArray, setCatArray] = useState(categories)
+    const [catArray, setCatArray] = useState([])
 
+    useEffect(() => {
+        const storedTags = JSON.parse(localStorage.getItem('tags'));
+        if (storedTags && storedTags.length) {
+            setCatArray(storedTags);
+        } else {
+            setCatArray(categories);
+        }
+      }, []);
+    
+      useEffect(() => {
+        localStorage.setItem('tags', JSON.stringify(catArray));
+      }, [catArray]);
 
 
     // changes filtered notes, when full list/category-color filters change
     useEffect(() => {
-        console.log('start filter')
         const tempsearch = search.toLowerCase()
-        const filtered = currentNotes.filter(note => {
+        const filtered = currentNotes?.filter(note => {
             return (selectedCategory === 'all' || note.category === selectedCategory)
                 && (selectedColor === 'all' || note.color === selectedColor);
         })
         if (tempsearch != '') {
-            console.log('search filtered')
             setFilteredNotes( filtered.filter(note => {
                 return (note.title.toLowerCase().includes(tempsearch) || note.content.toLowerCase().includes(tempsearch))
             }))
@@ -32,11 +42,6 @@ export default function ({ darkMode, setDarkMode, setActive, active, currentNote
             setFilteredNotes(filtered)
         }
 
-       
-        // setFilteredNotes(currentNotes.filter(note => {
-        //     return (selectedCategory === 'all' || note.category === selectedCategory)
-        //         && (selectedColor === 'all' || note.color === selectedColor);
-        // }));
     }, [currentNotes, selectedCategory, selectedColor, search]);
 
     // delete the category property from the notes when the tag is deleted
@@ -49,6 +54,8 @@ export default function ({ darkMode, setDarkMode, setActive, active, currentNote
             });
         });
     }
+
+
 
 
     return (

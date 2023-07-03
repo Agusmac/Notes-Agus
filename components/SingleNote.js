@@ -4,27 +4,29 @@ import { BiPalette, BiTrash, BiLabel, } from 'react-icons/bi';
 import { RxCross2 } from 'react-icons/rx';
 import { FaCheckCircle } from 'react-icons/fa';
 import { RiPencilFill } from 'react-icons/ri';
-import { categories, colors } from '@/helpers/Sample';
+import { colors } from '@/helpers/Sample';
 
-
+// this is double the length of what i like, will refactorize next time
 
 export default function SingleNote({ note, darkMode, setCurrentNotes, catArray }) {
 
-    // text/edit
+
     const [editMode, setEditMode] = useState(false)
     const [mouseOver, setMouseOver] = useState(false)
     const [colorActive, setColorActive] = useState(false)
     const [catActive, setCatActive] = useState(false)
 
+    // show icons on desktop if mouse on
     const onMouseOver = () => setMouseOver(true)
     const onMouseLeave = () => setMouseOver(false)
 
-    // const colorON = () => setColorActive(true)
+    // toggle the color switcher
     const colorOFF = () => setColorActive(false)
     const colorToggle = () => {
         setColorActive(prev => !prev)
         setCatActive(false)
     }
+    // toggle the tag/category switcher
     const catToggle = () => {
         setCatActive(prev => !prev)
         setColorActive(false)
@@ -33,6 +35,7 @@ export default function SingleNote({ note, darkMode, setCurrentNotes, catArray }
     const TitleEdit = useRef()
     const TextEdit = useRef()
 
+    // makes the input have the same text of the note, and focus on the content one
     useEffect(() => {
         TitleEdit.current.value = note.title || ''
         TextEdit.current.value = note.content || ''
@@ -90,8 +93,6 @@ export default function SingleNote({ note, darkMode, setCurrentNotes, catArray }
     }
 
 
-
-
     return (
         <div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave} className={`px-4 py-3  ${note.color == 'none' && 'border'} relative duration-300 ${darkMode ? 'border-[#5f6368]' : 'border-[#e0e0e0]'}  grid rounded-lg bg-[${note.color}] `}>
             <div className='min-h-[60px] mb-3 '>
@@ -100,9 +101,10 @@ export default function SingleNote({ note, darkMode, setCurrentNotes, catArray }
                 {!editMode && <h2 className='text-xl font-bold mb-1 break-words'>{note?.title}</h2>}
                 {!editMode && <p>{note.content}</p>}
                 <br />
-                {note.category != 'none' && <div className='px-2 py-1 rounded-xl flex justify-center items-center bg-black back border border-[#6e6b8e] w-fit text-xs'><p className='opacity-100'>{note.category}</p></div>}
+                {note.category != 'none' && <div className='px-2 py-1 uppercase rounded-xl flex justify-center items-center bg-black back border border-[#6e6b8e] w-fit text-xs'><p className='opacity-100'>{note.category}</p></div>}
             </div>
 
+            {/* my eyes hurt from this one, sorry but the free time finished */}
             <div className={`flex justify-end items-end space-x-4 text-2xl justify-self-end duration-300 w-full ${mouseOver ? 'opacity-100' : 'md:opacity-0'}`}>
                 {!editMode && <div onClick={catToggle} className='hover:cursor-pointer'><BiLabel /></div>}
                 {!editMode && <div onClick={colorToggle} className='hover:cursor-pointer'><BiPalette /> </div>}

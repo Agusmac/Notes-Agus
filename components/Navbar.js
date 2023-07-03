@@ -56,11 +56,7 @@ export default function Navbar({ setActive, darkMode, setSearch, search }) {
                         </div>
                     </div>
                 }
-
             </div>
-
-
-
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 
 import { BiPalette, BiTrash, BiLabel } from 'react-icons/bi';
-import { MdOutlineCheck } from 'react-icons/md';
+// import { MdOutlineCheck } from 'react-icons/md';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { RxCross2 } from 'react-icons/rx';
 
@@ -118,8 +118,6 @@ export default function Input({ darkMode, setCurrentNotes, catArray }) {
             <div onClick={addNote} className='hover:cursor-pointer mr-5 flex space-x-4 items-center'><p className='text-lg'></p> <AiOutlinePlus /></div>
           </div>
         }
-
-
         {/* color */}
         <div className={`absolute p-2 rounded left-0 bottom-0 w-1/3 translate-y-[69px]  z-10  ${darkMode ? 'bg-[#202124] shadowHanger' : 'bg-[#ffffff] shadowHangerDay'} ${!colorActive && 'hidden'}`}>
           <div className='justify-items-center gap-2 md:gap-1 grid grid-cols-4 items-center '>
@@ -135,15 +133,7 @@ export default function Input({ darkMode, setCurrentNotes, catArray }) {
           </div>
         </div>
 
-
-
-
       </div>
-
-
-
     </div>
   )
 }
-{/* <h2 className='text-xl font-bold mb-1'>Title</h2> */ }
-{/* <div>Input</div> */ } {/* text-black  */ }
